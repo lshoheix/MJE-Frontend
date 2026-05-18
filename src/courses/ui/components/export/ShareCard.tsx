@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import ExportEmailModal from "./ExportEmailModal";
+import ExportEmailModal from "./ShareEmailModal";
 import { trackExportClick } from "./event_tracking";
 
 const pretendard = "'Pretendard Variable', Pretendard, sans-serif";
