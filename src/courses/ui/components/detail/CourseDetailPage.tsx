@@ -68,6 +68,7 @@ export default function CourseDetailPage({
     [selectedCourse?.keywords],
   );
 
+
   const labelToGrade: Record<CourseType, string> = {
     "Best Course !": "best",
     "Option A": "optional_a",
@@ -75,6 +76,19 @@ export default function CourseDetailPage({
   };
 
   const handleOtherCourseClick = (course: Course, label: CourseType) => {
+
+  const sessionTransport = useMemo(() => {
+    const session = loadCourseSession();
+    if (!session) return undefined;
+    const course =
+      session.mainCourse?.courseId === courseId
+        ? session.mainCourse
+        : session.subCourses.find((c) => c.courseId === courseId);
+    return course?.transport;
+  }, [courseId]);
+
+  const handleOtherCourseClick = (course: Course) => {
+ main
     if (!course.id) {
       return;
     }
@@ -104,15 +118,6 @@ export default function CourseDetailPage({
     transit: "대중교통",
     car: "자동차",
   };
-  const sessionTransport = useMemo(() => {
-    const session = loadCourseSession();
-    if (!session) return undefined;
-    const course =
-      session.mainCourse?.courseId === courseId
-        ? session.mainCourse
-        : session.subCourses.find((c) => c.courseId === courseId);
-    return course?.transport;
-  }, [courseId]);
   const resolvedTransport = selectedCourse.transport ?? sessionTransport;
   const transportLabel = resolvedTransport
     ? (transportLabelMap[resolvedTransport] ?? resolvedTransport)
