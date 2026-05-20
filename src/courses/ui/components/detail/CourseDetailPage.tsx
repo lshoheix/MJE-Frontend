@@ -19,15 +19,24 @@ import HeadlineLocation from "@/courses/ui/components/headline_location/Headline
 import HeadlineStartTime from "@/courses/ui/components/headline_start_time/HeadlineStartTime";
 import HeadlineCourseTitle from "@/courses/ui/components/headline_course_title/HeadlineCourseTitle";
 import HeadlineCourseExplain from "@/courses/ui/components/headline_course_explain/HeadlineCourseExplain";
+import { CourseType } from "@/courses/ui/components/shared/CourseLabel";
+
+function gradeToLabel(grade?: string): CourseType {
+  if (grade === "optional_a") return "Option A";
+  if (grade === "optional_b") return "Option B";
+  return "Best Course !";
+}
 
 interface CourseDetailPageProps {
   courseId: string;
   initialDetailData: CourseDetailData | null;
+  grade?: string;
 }
 
 export default function CourseDetailPage({
   courseId,
   initialDetailData,
+  grade,
 }: CourseDetailPageProps) {
   const { data, isLoading: isSessionLoading } = useSuggestedCourses();
   const { courses: otherCourses } = useOtherCourses(courseId);
@@ -58,13 +67,19 @@ export default function CourseDetailPage({
     [selectedCourse?.keywords],
   );
 
-  const handleOtherCourseClick = (course: Course) => {
+  const labelToGrade: Record<CourseType, string> = {
+    "Best Course !": "best",
+    "Option A": "optional_a",
+    "Option B": "optional_b",
+  };
+
+  const handleOtherCourseClick = (course: Course, label: CourseType) => {
     if (!course.id) {
       return;
     }
 
     trackOptionCardClick();
-    router.push(`/courses/detail/${course.id}`);
+    router.push(`/courses/detail/${course.id}?grade=${labelToGrade[label]}`);
   };
 
   if (isSessionLoading && !initialDetailData) {
@@ -108,7 +123,31 @@ export default function CourseDetailPage({
     otherCourses.length > 0
       ? otherCourses.slice(0, 2)
       : fallbackAlternatives.filter((course) => course.id !== courseId).slice(0, 2);
-  const safeAlternatives = alternatives.filter((course) => course.name);
+  const safeAlternatives = alternatives
+    .filter((course) => course.name)
+    .sort((a, b) => {
+      const aIsBest = (a.courseType ?? "").toUpperCase() === "BEST";
+      const bIsBest = (b.courseType ?? "").toUpperCase() === "BEST";
+      if (aIsBest && !bIsBest) return -1;
+      if (!aIsBest && bIsBest) return 1;
+      return 0;
+    });
+
+  const alternativeLabels: CourseType[] = useMemo(() => {
+    let optionalIndex = 0;
+    return safeAlternatives.map((course) => {
+      const t = (course.courseType ?? "").toUpperCase().replace(/[-\s]/g, "_");
+      if (t === "BEST") return "Best Course !";
+      if (t.includes("OPTIONAL_A") || t.includes("OPTION_A")) return "Option A";
+      if (t.includes("OPTIONAL_B") || t.includes("OPTION_B")) return "Option B";
+      if (t.includes("OPTIONAL") || t.includes("OPTION")) {
+        if (grade === "optional_a") return "Option B";
+        if (grade === "optional_b") return "Option A";
+        return optionalIndex++ === 0 ? "Option A" : "Option B";
+      }
+      return "Best Course !";
+    });
+  }, [safeAlternatives, grade]);
 
   const locations =
     selectedCourse.locations ??
@@ -137,7 +176,7 @@ export default function CourseDetailPage({
         {/* 상세 일정 카드 */}
         <div className="flex flex-col gap-3 rounded-[30px] bg-white px-[17px] pb-[19px] pt-[22px] shadow-[0px_8px_32px_rgba(42,72,116,0.12)]">
           <div className="flex flex-col gap-[10px]">
-            <BestCourseLabel label="Best Course !" />
+            <BestCourseLabel label={gradeToLabel(grade)} />
             <div className="flex items-baseline gap-[8px]">
               <span className="text-[18px] font-bold text-black">상세 일정</span>
               {selectedCourse.duration && (
@@ -190,8 +229,8 @@ export default function CourseDetailPage({
                   <OtherCourseCard
                     key={course.id || `alternative-course-${index}`}
                     course={course}
-                    label={index === 0 ? "Option A" : "Option B"}
-                    onClick={handleOtherCourseClick}
+                    label={alternativeLabels[index]}
+                    onClick={(c) => handleOtherCourseClick(c, alternativeLabels[index])}
                   />
                 ))}
               </div>
@@ -216,8 +255,8 @@ export default function CourseDetailPage({
                 <OtherCourseCard
                   key={course.id || `alternative-course-${index}`}
                   course={course}
-                  label={index === 0 ? "Option A" : "Option B"}
-                  onClick={handleOtherCourseClick}
+                  label={alternativeLabels[index]}
+                  onClick={(c) => handleOtherCourseClick(c, alternativeLabels[index])}
                 />
               ))}
             </div>
