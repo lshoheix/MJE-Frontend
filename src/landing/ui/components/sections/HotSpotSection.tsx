@@ -415,17 +415,17 @@ function CourseCardSeongsu() {
         </div>
       </div>
       {/* spot names */}
-      <div className="absolute flex h-[26.639px] items-center justify-center left-[125.84px] top-[307.85px] w-[58.143px]">
+      <div className="absolute flex h-[26.639px] items-center justify-center left-[160px] top-[307.85px] w-[58.143px]">
         <div className="flex-none rotate-[9.11deg]">
           <p className="[word-break:break-word] font-['Inter:Medium','Noto_Sans_KR:Medium',sans-serif] font-medium leading-[normal] not-italic relative text-[#2d2e30] text-[15px] whitespace-nowrap">마리오네</p>
         </div>
       </div>
-      <div className="absolute flex h-[24.422px] items-center justify-center left-[119.49px] top-[347.45px] w-[44.32px]">
+      <div className="absolute flex h-[24.422px] items-center justify-center left-[153.7px] top-[347.45px] w-[44.32px]">
         <div className="flex-none rotate-[9.11deg]">
           <p className="[word-break:break-word] font-['Inter:Medium','Noto_Sans_KR:Medium',sans-serif] font-medium leading-[normal] not-italic relative text-[#2d2e30] text-[15px] whitespace-nowrap">로우키</p>
         </div>
       </div>
-      <div className="absolute flex h-[26.639px] items-center justify-center left-[113.22px] top-[386.57px] w-[58.143px]">
+      <div className="absolute flex h-[26.639px] items-center justify-center left-[147.6px] top-[386.57px] w-[58.143px]">
         <div className="flex-none rotate-[9.11deg]">
           <p className="[word-break:break-word] font-['Inter:Medium','Noto_Sans_KR:Medium',sans-serif] font-medium leading-[normal] not-italic relative text-[#2d2e30] text-[15px] whitespace-nowrap">성수연방</p>
         </div>
