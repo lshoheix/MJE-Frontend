@@ -1,6 +1,5 @@
 import svgPaths from "@/landing/ui/components/assets/svgPaths";
 import { imgHeroOverlay } from "@/landing/ui/components/assets/images";
-import LandingNavbar from "@/landing/ui/components/sections/LandingNavbar";
 import HeroCtaButton from "@/landing/ui/components/sections/HeroCtaButton";
 
 function DecorativeBlobs() {
@@ -191,7 +190,6 @@ export default function HeroSection() {
       <div className="-translate-x-1/2 absolute h-[849.985px] left-1/2 top-0 w-[1501.959px]">
         <img alt="" className="absolute inset-0 max-w-none mix-blend-overlay object-cover pointer-events-none size-full" src={imgHeroOverlay} />
       </div>
-      <LandingNavbar />
       {/* Light-blue highlight under sub-copy */}
       <div className="-translate-x-1/2 absolute bg-[#d5e6f6] h-[13.861px] left-[calc(50%-421.46px)] top-[254.12px] w-[337.083px]" />
       {/* Sub-copy under main heading — 각 줄 앞에 픽셀 하트 아이콘 */}
