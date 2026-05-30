@@ -146,17 +146,17 @@ function PixelHeart({ baseY }: { baseY: number }) {
 function Stars() {
   return (
     <>
-      <div className="absolute h-[49.814px] left-[1003.63px] top-[258.63px] w-[28.847px]">
+      <div className="absolute h-[49.814px] left-[1003.63px] top-[258.63px] w-[28.847px] animate-float-y" style={{ animationDelay: '0s' }}>
         <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 28.8467 49.8135">
           <path d={svgPaths.p19b03300} fill="#FFC0FC" stroke="#2D2E30" strokeWidth="3" />
         </svg>
       </div>
-      <div className="absolute h-[49.814px] left-[1281.15px] top-[614.78px] w-[28.847px]">
+      <div className="absolute h-[49.814px] left-[1281.15px] top-[614.78px] w-[28.847px] animate-float-y" style={{ animationDelay: '0.7s' }}>
         <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 28.8467 49.8135">
           <path d={svgPaths.p19b03300} fill="#ACCAF5" stroke="#2D2E30" strokeWidth="3" />
         </svg>
       </div>
-      <div className="absolute h-[42.128px] left-[984.43px] top-[291.74px] w-[24.396px]">
+      <div className="absolute h-[42.128px] left-[984.43px] top-[291.74px] w-[24.396px] animate-float-y" style={{ animationDelay: '1.3s' }}>
         <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 24.3961 42.128">
           <path d={svgPaths.p27876900} fill="white" stroke="#2D2E30" strokeWidth="3" />
         </svg>
