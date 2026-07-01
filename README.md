@@ -7,6 +7,8 @@
 **데이트코스 고민 30분, 이제 30초로.**
 원하는 조건 3가지만 입력하면 맛집·카페·놀거리까지 한 번에 추천받는 커플 데이트 플래너
 
+Backend: https://github.com/lshoheix/MJE-Backend
+
 </div>
 
 <br/>
